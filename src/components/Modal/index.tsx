@@ -1,14 +1,11 @@
-import React from 'react';
+import React from "react";
 //import { Dialog, Transition } from '@headlessui/react';
 //import { Fragment } from 'react';
 
-
-const Modal = ({ }) => {
-
-
-	return (
-		<>
-			{/*		<Transition appear show={isOpen} as={Fragment}>
+const Modal = ({}) => {
+  return (
+    <>
+      {/*		<Transition appear show={isOpen} as={Fragment}>
 				<Dialog as="div" className="relative z-10" onClose={onClose}>
 					<Transition.Child
 						as={Fragment}
@@ -59,8 +56,8 @@ const Modal = ({ }) => {
 					</div>
 				</Dialog>
 			</Transition>*/}
-		</>
-	);
+    </>
+  );
 };
 
 export default Modal;
