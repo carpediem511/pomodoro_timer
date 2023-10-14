@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import Modal from "../Modal";
+import TimerButtons from "../TimerButtons";
 
 const Timer = () => {
 	const [totalMinutes, setTotalMinutes] = useState<number>(25); // общая продолжительность в минутах
@@ -88,7 +88,8 @@ const Timer = () => {
 	}, [isTimerOn, secondsToEnd, minutesToEnd]);
 
 	const time: string = `${minutesToEnd < 10 ? "0" + minutesToEnd : minutesToEnd
-		}:${secondsToEnd < 10 ? "0" : ""}${secondsToEnd}`;
+		}:${secondsToEnd < 10 ? "0" : ""}${secondsToEnd}`
+
 
 	return (
 		<>
@@ -101,26 +102,12 @@ const Timer = () => {
 					pathColor: "rgb(138, 43, 226)",
 				})}
 			/>
-			<div className="flex justify-center mt-10 gap-4">
-				<button
-					className="self-center text-white font-semibold active:shadow-lg flex rounded-lg px-3 mt-2 py-2 border w-1/2 justify-center bg-teal-600 hover:bg-teal-400 duration-200 hover:text-black"
-					onClick={toggleTimer}
-				>
-					{isTimerOn ? "Приостановить таймер" : "Начинаем!"}
-				</button>
+			<TimerButtons
+				isTimerOn={isTimerOn}
+				toggleTimer={toggleTimer}
+				resetTimer={resetTimer}
+			/>
 
-				<button
-					className="self-center text-white font-semibold active:shadow-lg flex rounded-lg px-3 mt-2 py-2 border w-1/2 justify-center bg-red-600 hover:bg-red-400 duration-200 hover:text-black"
-					onClick={resetTimer}
-				>
-					Сброс
-				</button>
-
-				<button className="self-center text-white font-semibold active:shadow-lg flex rounded-lg px-3 mt-2 py-2 border w-1/2 justify-center bg-teal-600 hover:bg-teal-400 duration-200 hover:text-black">
-					Настройки
-				</button>
-			</div>
-			<Modal /* isOpen={isOpenModal} onClose={() => setIsOpenModal(false)}*/ />
 		</>
 	);
 };
