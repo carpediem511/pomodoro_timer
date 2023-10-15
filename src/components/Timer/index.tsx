@@ -98,7 +98,7 @@ const Timer = () => {
 		return () => {
 			clearInterval(timerInterval);
 		};
-	}, [isTimerOn, secondsToEnd, minutesToEnd, startInterval, timerInterval]);
+	}, [isTimerOn, secondsToEnd, minutesToEnd, startInterval, timerInterval, clearInterval]);
 
 	const time: string = `${minutesToEnd < 10 ? "0" + minutesToEnd : minutesToEnd
 		}:${secondsToEnd < 10 ? "0" : ""}${secondsToEnd}`;
