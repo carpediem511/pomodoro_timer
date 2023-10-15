@@ -5,7 +5,7 @@ import ModalSettings from "../ModalSettings";
 type TimerButtonsProps = {
 	isTimerOn: boolean;
 	toggleTimer: () => void;
-	resetTimer: () => void;
+	resetTimer: () => void
 }
 
 const TimerButtons = ({
