@@ -1,6 +1,6 @@
 import { useState } from "react"
-import Settings from "../Settings";
 import ModalSettings from "../ModalSettings";
+
 
 type TimerButtonsProps = {
 	isTimerOn: boolean;
@@ -14,10 +14,10 @@ const TimerButtons = ({
 	resetTimer,
 }: TimerButtonsProps) => {
 
-	const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+	const [isModalSettingsOpen, setIsModalSettingsOpen] = useState<boolean>(false)
 
-	const handleModalToggle = () => {
-		setIsModalOpen(!isModalOpen);
+	const openModal = () => {
+		setIsModalSettingsOpen(true);
 	}
 
 	return (
@@ -38,21 +38,13 @@ const TimerButtons = ({
 
 			<button
 				className="self-center text-white font-semibold active:shadow-lg flex rounded-lg px-3 mt-2 py-2 border w-1/2 justify-center bg-teal-600 hover:bg-teal-400 duration-200 hover:text-black"
-				onClick={handleModalToggle}
+				onClick={openModal}
 			>
-				{isModalOpen ? "Закрыть настройки" : "Настройки"}
+				Настройки
 			</button>
 
-			{isModalOpen && (
-				<div className="fixed inset-0 flex items-center justify-center z-50">
-					<div className="modal fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-75">
-						<div className="modal-content p-4 bg-white">
-							<button onClick={handleModalToggle}>Закрыть</button>
-							<Settings />
-						</div>
-					</div>
-				</div>
-			)}
+			{isModalSettingsOpen && <ModalSettings setIsModalSettingsOpen={setIsModalSettingsOpen} />}
+
 		</div>
 	)
 }
