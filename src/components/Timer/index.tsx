@@ -4,19 +4,20 @@ import "react-circular-progressbar/dist/styles.css";
 import TimerButtons from "../TimerButtons";
 import ModalNotification from "../ModalNotification";
 
+const DEFAULT_WORK_TIME = 25
+const DEFAULT_REST_TIME = 5
 
 const Timer = () => {
-	const [totalMinutes, setTotalMinutes] = useState<number>(25);
+	const [workTime, setWorkTime] = useState<number>(DEFAULT_WORK_TIME)
+	const [restTime, setRestTime] = useState<number>(DEFAULT_REST_TIME)
+	const [totalMinutes, setTotalMinutes] = useState<number>(workTime);
 	const [timerType, setTimerType] = useState<string>("work");
 	const [isTimerOn, setIsTimerOn] = useState<boolean>(false);
 	const [minutesToEnd, setMinutesToEnd] = useState<number>(totalMinutes);
 	const [secondsToEnd, setSecondsToEnd] = useState<number>(0);
 	const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-	const [progress, setProgress] = useState<string>("");
-	const [notificationMessage, setNotificationMessage] = useState<string>("");
 
-	const workTime = 25;
-	const restTime = 5;
+
 	let timerInterval: any
 
 	const playSound = (soundFile: string) => {
@@ -46,7 +47,6 @@ const Timer = () => {
 		setMinutesToEnd(totalMinutes);
 		setSecondsToEnd(0);
 		setIsOpenModal(false);
-		setProgress("");
 	};
 
 	const startInterval = () => {
@@ -61,9 +61,6 @@ const Timer = () => {
 			} else {
 				setSecondsToEnd(secondsToEnd - 1);
 			}
-			// eslint-disable-next-line
-			const progressValue: string = `${minutesToEnd}:${secondsToEnd < 10 ? `0${secondsToEnd}` : secondsToEnd}`;
-			setProgress(progressValue);
 		}, 1000);
 	};
 
@@ -77,29 +74,43 @@ const Timer = () => {
 			setIsOpenModal(true);
 			setTimerType("rest");
 			setTotalMinutes(restTime);
-			setNotificationMessage("Вы хорошенько поработали! Так держать! Теперь немного отдохните!");
 		} else {
 			playSound("/work_time.mp3");
 			setIsOpenModal(true);
 			setTimerType("work");
 			setTotalMinutes(workTime);
-			setNotificationMessage("Пора снова за работу!");
 		}
 	};
 
 	useEffect(() => {
+
 		if (isTimerOn) {
-			startInterval();
+			startInterval()
 		} else if (timerInterval) {
-			clearInterval(timerInterval);
+
+			clearInterval(timerInterval)
 		}
 
 		return () => {
 			if (timerInterval) {
-				clearInterval(timerInterval);
+				clearInterval(timerInterval)
 			}
-		};
-	}, [isTimerOn, secondsToEnd, minutesToEnd, startInterval, timerInterval]);
+		}
+	}, [isTimerOn, secondsToEnd, minutesToEnd, timerInterval, startInterval])
+
+	useEffect(() => {
+
+		if (timerType === 'work') {
+			setTotalMinutes(workTime)
+		} else {
+
+			setTotalMinutes(restTime)
+		}
+	}, [restTime, workTime])
+
+	useEffect(() => {
+		resetTimer()
+	}, [totalMinutes]);
 
 	const time: string = `${minutesToEnd < 10 ? "0" + minutesToEnd : minutesToEnd}:${secondsToEnd < 10 ? "0" : ""}${secondsToEnd}`;
 
@@ -122,11 +133,14 @@ const Timer = () => {
 					isTimerOn={isTimerOn}
 					toggleTimer={toggleTimer}
 					resetTimer={resetTimer}
+					workTime={workTime}
+					setWorkTime={setWorkTime}
+					restTime={restTime}
+					setRestTime={setRestTime}
 				/>
 
 				{isOpenModal && (
 					<ModalNotification
-						// eslint-disable-next-line
 						message={timerType === "work" ? "Снова пора за работу!" : "Вы хорошенько поработали! Так держать! Теперь немного отдохните!"}
 						onClose={() => setIsOpenModal(false)}
 						resetTimer={resetTimer}

@@ -3,10 +3,14 @@ import { useState } from "react";
 
 type ModalSettingsProps = {
 	setIsModalSettingsOpen: (isOpen: boolean) => void;
+	workTime: number,
+	restTime: number,
+	setWorkTime: (workTime: number) => void,
+	setRestTime: (restTime: number) => void
 };
 
-const ModalSettings = ({ setIsModalSettingsOpen }: ModalSettingsProps) => {
-	const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(true);
+const ModalSettings = ({ setIsModalSettingsOpen, workTime, setWorkTime, restTime, setRestTime }: ModalSettingsProps) => {
+	const [isSettingsOpen] = useState<boolean>(true);
 
 	const handleModalToggle = () => {
 		setIsModalSettingsOpen(false);
@@ -43,7 +47,11 @@ const ModalSettings = ({ setIsModalSettingsOpen }: ModalSettingsProps) => {
 								</button>
 							</div>
 							<div className="space-y-2 p-4 mt-3 text-[15.5px] leading-relaxed text-gray-500">
-								<Settings />
+								<Settings
+									workTime={workTime}
+									setWorkTime={setWorkTime}
+									restTime={restTime}
+									setRestTime={setRestTime} />
 							</div>
 							<div className="flex items-center gap-3 p-4 mt-5 border-t">
 								<button
@@ -52,12 +60,7 @@ const ModalSettings = ({ setIsModalSettingsOpen }: ModalSettingsProps) => {
 								>
 									Применить
 								</button>
-								<button
-									className="border p-1 w-1/2 mx-auto mt-8 rounded-md text-white font-semibold active:shadow-lg flex justify-center bg-red-600 hover:bg-red-400 duration-200 hover:text-black"
-									onClick={handleModalToggle}
-								>
-									Закрыть
-								</button>
+
 							</div>
 						</div>
 					</div>
