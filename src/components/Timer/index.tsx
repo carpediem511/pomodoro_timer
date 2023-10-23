@@ -106,11 +106,11 @@ const Timer = () => {
 
 			setTotalMinutes(restTime)
 		}
-	}, [restTime, workTime, timerType])
+	}, [restTime, workTime])
 
 	useEffect(() => {
 		resetTimer()
-	}, [totalMinutes, resetTimer]);
+	}, [totalMinutes]);
 
 	const time: string = `${minutesToEnd < 10 ? "0" + minutesToEnd : minutesToEnd}:${secondsToEnd < 10 ? "0" : ""}${secondsToEnd}`;
 
