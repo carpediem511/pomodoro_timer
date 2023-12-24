@@ -11,7 +11,7 @@ const ModalNotification = ({
 }: ModalNotificationProps) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-25 flex items-center justify-center">
-      <div className="w-full max-w-md bg-white rounded-md shadow-lg p-6 text-center">
+      <div className="w-full max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl bg-white rounded-md shadow-lg p-6 text-center">
         <h3 className="text-lg font-medium leading-6 text-gray-900">
           {message}
         </h3>

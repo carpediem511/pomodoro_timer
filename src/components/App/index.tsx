@@ -1,5 +1,4 @@
 import Timer from "../Timer";
-import "./styles.css";
 
 const App = () => {
   return (
@@ -10,7 +9,7 @@ const App = () => {
       <div className="text-center mt-20 text-3xl font-extrabold text-red-500 relative">
         Управляй временем с помощью "Pomodoro"!
       </div>
-      <div className="w-1/5 mx-auto p-4 mt-16">
+      <div className="w-full md:w-2/3 lg:w-1/2 xl:w-1/3 mx-auto p-4 mt-16">
         <Timer />
       </div>
     </div>
